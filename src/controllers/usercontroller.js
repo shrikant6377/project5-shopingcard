@@ -18,8 +18,8 @@ const createUser = async function (req, res) {
         if (!isValid(data.title)) {
             return res.status(400).send({ status: false, msg: "title is required" })
         }
-        if (!isValid(data.name)) {
-            return res.status(400).send({ status: false, msg: "name is required" })
+        if (!isValid(data.fname)) {
+            return res.status(400).send({ status: false, msg: "fname is required" })
         }
         if (!isValid(data.phone)) {
             return res.status(400).send({ status: false, msg: "phone is required" })
