@@ -11,7 +11,7 @@ const authentication = async function(req, res, next){
         const bearer= token.split(" ")[1];
       
         console.log(bearer)
-        const decodedtoken =jwt.verify(bearer, "Group-32")
+        const decodedtoken =jwt.verify(bearer, "Project-5-group-32")
         console.log(decodedtoken)
         if(!decodedtoken){
             return res.status(400).send({status:false, msg: "token is invalid"})

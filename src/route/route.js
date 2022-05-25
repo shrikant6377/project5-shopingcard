@@ -6,7 +6,7 @@ const middlewares=require("../middlewares/auth")
 const userController = require("../controllers/usercontroller")
 
 router.post("/register",userController.createUser)
-router.post("/login",userController.login)
+router.post("/login",userController.loginUser)
 
 
 router.get("/user/:userId/profile",middlewares.authentication,userController.getUserbyId)
