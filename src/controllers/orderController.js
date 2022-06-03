@@ -2,32 +2,47 @@ const orderModel = require("../Models/orderModel")
 const cartModel = require('../Models/cartModel')
 const productModel = require('../Models/productModel')
 const userModel = require('../Models/userModel')
-const { isValidObjectId, isValidStatus } = require('../Middleware/validation')
-
+const { isValidObjectId, isValidStatus, isValid } = require('../Middleware/validation')
 
 //***************************************************************CREATE ORDER****************************************************************************************
 
 const createOrder = async function (req, res) {
     try {
         const userId = req.params.userId
-        const { cancellable } = req.body
+        const { cartId } = req.body
 
         if (!isValidObjectId(userId)) return res.status(400).send({ status: false, message: "invalid user Id.." })
-        const user = await userModel.findOne({ userId: userId })
+
+        const user = await userModel.findOne({ _id: userId })
         if (!user) return res.status(404).send({ status: false, message: "user not found" })
 
-        const cart = await cartModel.findOne({ userId: userId }).lean().select({ updatedAt: 0, createdAt: 0, __v: 0, _id: 0 })
-        console.log(cart)
+        if (!isValid(cartId)) return res.status(400).send({ status: false, message: "cart Id required" })
+
+        if (!isValidObjectId(cartId)) return res.status(400).send({ status: false, message: "invalid cart Id.." })
+
+        const cart = await cartModel.findOne({ _id: cartId }).lean().select({ updatedAt: 0, createdAt: 0, __v: 0, _id: 0 })
+
         if (!cart) return res.status(404).send({ status: false, message: "cart not found to place an order.." })
+
         if (cart.items.length == 0) return res.status(404).send({ status: false, message: "Cart is empty... First add Product to Cart." })
+        cart.totalQuantity = cart.items.map(x => x.quantity).reduce((x, y) => x + y) // map giving array of quantity
 
-        if (!cancellable) return res.status(400).send({ status: false, message: "Provide cancellable Field" })
-        if (typeof cancellable != "boolean") return res.status(400).send({ status: false, message: "cancellable should be true or false only" })
+        let order = await orderModel.create(cart)
 
-        cart.totalQuantity = cart.items.map(x => x.quantity).reduce((x, y) => x + y)
-        cart.cancellable = cancellable
-        const orderCreated = await orderModel.create(cart)
-        res.status(201).send({ status: true, message: "order created successfully", data: orderCreated })
+        //==getting only required keys and sending in response==//
+        let result ={
+        _id : order._id,
+        userId : order.userId,
+        items : order.items,
+        totalPrice : order.totalPrice,
+        totalItems : order.totalItems,
+        totalQuantity : order.totalQuantity,
+        cancellable : order.cancellable,
+        status : order.status,
+        createdAt : order.createdAt,
+        updatedAt : order.updatedAt
+    }
+        res.status(201).send({ status: true, message: "order created successfully", data: result })
 
         await cartModel.findOneAndUpdate({ userId: userId }, { $set: { items: [], totalItems: 0, totalPrice: 0 } }, { new: true })
 
@@ -58,7 +73,7 @@ const updateOrder = async function (req, res) {
         if (searchOrder.userId != userId) return res.status(400).send({ status: false, message: "the order does not belongs to this user" })
 
         if (!status) return res.status(400).send({ status: false, message: "Provide Order Status" })
-        //if (!isValidStatus(status)) return res.status(400).send({ status: false, message: "status should be among 'pending','completed' and 'canceled' only" })
+        if (!isValidStatus(status)) return res.status(400).send({ status: false, message: "status should be among 'pending','completed' and 'canceled' only" })
 
 
         if (status == 'cancled' && searchOrder.cancellable !== true) return res.status(400).send({ status: false, message: "You can not cancel the order" })
@@ -73,7 +88,6 @@ const updateOrder = async function (req, res) {
         return res.status(500).send({ status: false, error: err.message })
     }
 }
-
 
 
 
