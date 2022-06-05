@@ -45,9 +45,7 @@ const createOrder = async function (req, res) {
         res.status(201).send({ status: true, message: "order created successfully", data: result })
 
         await cartModel.findOneAndUpdate({ userId: userId }, { $set: { items: [], totalItems: 0, totalPrice: 0 } }, { new: true })
-
     }
-
     catch (err) {
         return res.status(500).send({ status: false, error: err.message })
     }
@@ -71,9 +69,9 @@ const updateOrder = async function (req, res) {
         const searchOrder = await orderModel.findById({ _id: orderId })
         if (!searchOrder) return res.status(404).send({ status: false, message: "order not found" })
         if (searchOrder.userId != userId) return res.status(400).send({ status: false, message: "the order does not belongs to this user" })
-
+        
         if (!status) return res.status(400).send({ status: false, message: "Provide Order Status" })
-        if (!isValidStatus(status)) return res.status(400).send({ status: false, message: "status should be among 'pending','completed' and 'canceled' only" })
+        //if (!isValidStatus(status)) return res.status(400).send({ status: false, message: "status should be among 'pending','completed' and 'canceled' only" })
 
 
         if (status == 'cancled' && searchOrder.cancellable !== true) return res.status(400).send({ status: false, message: "You can not cancel the order" })
@@ -88,8 +86,5 @@ const updateOrder = async function (req, res) {
         return res.status(500).send({ status: false, error: err.message })
     }
 }
-
-
-
 
 module.exports = { createOrder, updateOrder }

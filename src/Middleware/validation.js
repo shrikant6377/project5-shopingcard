@@ -113,5 +113,12 @@ const isValidNum = (number)=>{
         return false;
     }
 };
+const isValidStatus=(status)=>{
+if(pending,completed,canceled.test(status)){
+    return true
+}else{
+    return false
+}
+};
 
-module.exports={ isValidRequestBody,quantityRange,isValidNum, isValid,isValidPincode, isValidObjectId, isValidEmail, isValidMobile, isValidName,isValidPassowrd,isValidPrice,isValidFile,isValidEnum}
+module.exports={ isValidRequestBody,quantityRange,isValidNum, isValid,isValidPincode, isValidObjectId, isValidEmail, isValidMobile,isValidStatus, isValidName,isValidPassowrd,isValidPrice,isValidFile,isValidEnum}

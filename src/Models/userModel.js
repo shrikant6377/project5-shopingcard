@@ -41,8 +41,7 @@ address: {
   shipping: {
     street: {type:String, required:true,},
     city: {type:String, required:true,},
-    pincode: {type:Number, required:true,}
-  },
+    pincode: {type:Number, required:true,}},
   billing: {
     street: {type:String, required:true,},
     city: {type:String, required:true,},
@@ -52,5 +51,4 @@ address: {
 },{ timestamps:true }
 
 )
-
 module.exports=mongoose.model("Users", newUserSchema)

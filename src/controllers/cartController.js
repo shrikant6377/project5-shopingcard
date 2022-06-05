@@ -102,11 +102,11 @@ const createCart = async function(req, res){
             },
             { new: true })
       
-        //==sending updated cart==//
+        //==sending updated cart========//
             return res.status(200).send({ status: true, message: 'Item added successfully', data: updateCart })
           }
     }else{
-    //==if cart not present creating it:
+    //==if cart not present creating it:===///
       //==calculating price and quantity==//
         let totalPrice = quantity * productPrice
         data.totalPrice = totalPrice
@@ -227,7 +227,6 @@ const createCart = async function(req, res){
           data["items"].push(presentCart.items[i])
          }
       }
-  
       presentCart.totalItems -= 1
       data.totalItems = presentCart.totalItems
   

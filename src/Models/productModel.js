@@ -13,13 +13,11 @@ const productSchema = new mongoose.Schema({
     },
   price: {
       type: Number, 
-      required: true, 
-      //validate: {validator: validator.isValidNumber, message: 'Price should be valid Number', isAsync: false}
+      required: true,  //validate: {validator: validator.isValidNumber, message: 'Price should be valid Number', isAsync: false}
     },
   currencyId: {
       type: String,
-      required: true, 
-      //default: 'INR'
+      required: true,  //default: 'INR'
     },
   currencyFormat: {
       type: String, 

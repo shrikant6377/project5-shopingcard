@@ -2,8 +2,7 @@ const productModel = require("../Models/productModel")
 const aws = require("../Middleware/aws")
 const { isValidRequestBody,isValidNum, isValid,isValidPrice,isValidEnum,isValidObjectId,isValidName, isValidFile} = require("../Middleware/validation");
 
-
-//---CREATE PRODUCT
+//---CREATE PRODUCT------////
 const createProduct = async (req, res) => {
     try {
     //==validating request body==//
@@ -35,7 +34,7 @@ const createProduct = async (req, res) => {
     //==validating currencyFormat==//
         if (!(isValid(data.currencyFormat)))  return res.status(400).send({ status: false, message: "Currency Format is required" }) 
         if (data.currencyFormat.trim() !== "₹")  return res.status(400).send({ status: false, message: "Please provide right format for currency" }) 
-       
+      
     //==validating style==//
         if (!(isValid(data.style)))  return res.status(400).send({ status: false, message: "Please provide style for your product" }) 
 
@@ -211,7 +210,7 @@ const updateProduct = async function (req, res) {
 
 //*******************************************************************//
 
-//---DELETE PRODUCT
+//---DELETE PRODUCT======---///
 const deleteProduct=async function(req,res){
     try{
     //==validating productId==//    

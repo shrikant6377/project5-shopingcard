@@ -3,12 +3,10 @@ const userModel = require("../Models/userModel")
 const jwt = require("jsonwebtoken");
 const aws = require("../Middleware/aws")
 const bcrypt = require('bcryptjs')
-const { isValidRequestBody, isValid,isValidName, isValidMobile, isValidEmail, isValidPassowrd,isValidObjectId, isValidFile }= require("../Middleware/validation")  // as a object{isvalid}
-
+const { isValidRequestBody, isValid,isValidName,isValidPincode, isValidMobile, isValidEmail, isValidPassowrd,isValidObjectId, isValidFile }= require("../Middleware/validation")  // as a object{isvalid}
 
 //const bcrypt = require('bcrypt')
- 
-//---REGISTER USER
+//---REGISTER USER------//
 const registerUser = async function (req, res) {
     try{
 //==validating request body==//
@@ -259,9 +257,8 @@ const getData = async function (req, res) {
               if (address.shipping.pincode) {
                 if (!isValid(address.shipping.pincode)) return res.status(400).send({ status: false, message: "Pincode of shipping address and should not be an empty string" });
       
-                if (!isValidPincode(address.shipping.pincode)) return res.status(400).send({ status: false, message: "Pincode should be in numbers" });
-      
-               
+                if (!isValidPincode(address.shipping.pincode))
+                 return res.status(400).send({ status: false, message: "Pincode should be in numbers" });
       
                 tempAddress.shipping.pincode =address.shipping.pincode;
               }
