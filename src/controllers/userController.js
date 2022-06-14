@@ -15,8 +15,10 @@ const registerUser = async function (req, res) {
      let { fname,lname,email,phone,password,address } = requestBody
 
 //==validating first name==//
-    if (!isValid(fname)) return res.status(400).send({ status: false, msg: "Name is a mandatory field" })
-    if (!isValidName(fname)) return res.status(400).send({ status: false, msg: "Name must contain only alphabates" })
+    if (!isValid(fname))
+     return res.status(400).send({ status: false, msg: "Name is a mandatory field" })
+    if (!isValidName(fname))
+     return res.status(400).send({ status: false, msg: "Name must contain only alphabates" })
 
 //==validating last name==//
     if (!isValid(lname)) return res.status(400).send({ status: false, msg: "Last Name is a mandatory field" })
