@@ -1,7 +1,4 @@
 const jwt = require("jsonwebtoken")
-//const { isValidObjectId } = require("mongoose")
-//const userModel = require("../Models/userModel")
-
 
 const authentication = async function(req, res, next){
     try{
@@ -10,7 +7,6 @@ const authentication = async function(req, res, next){
         if(!token){
             return res.status(400).send({status:false, msg: "login is required, token is required"})
         }
-
         const bearer= token.split(" ")[1];
       
         console.log(bearer)
