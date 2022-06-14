@@ -30,7 +30,6 @@ let isValid = function (value) {
 }
 
 //*******************//
-
 //==ObjectId Validation
 
 let isValidObjectId = function (ObjectId){
@@ -38,9 +37,7 @@ let isValidObjectId = function (ObjectId){
     // return true;
     return mongoose.Types.ObjectId.isValid(ObjectId)
 }
-
 //*******************//
-
 //==Pincode Valid
 let isValidPincode = function (pincode){
    let pincodeRegex =  /^[0-9]{6}$/
