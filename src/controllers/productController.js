@@ -172,9 +172,11 @@ const updateProduct = async function (req, res) {
         }
 
     //==validating price if given==//
-        if (price == "") { return res.status(400).send({ status: false, message: "price is not valid" }) }
+        if (price == "") {
+             return res.status(400).send({ status: false, message: "price is not valid" }) }
         else if (price) {
-            if (!isValidPrice(price)) return res.status(400).send({ status: false, message: "price Should be Valid" })
+            if (!isValidPrice(price))
+             return res.status(400).send({ status: false, message: "price Should be Valid" })
         }
 
     //==validating style if given==//      
