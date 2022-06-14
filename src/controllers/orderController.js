@@ -60,10 +60,13 @@ const updateOrder = async function (req, res) {
 
         const { orderId, status } = requestBody
 
-        if (!isValidObjectId(userId)) return res.status(400).send({ status: false, message: "invalid user Id.." })
-        if (!await userModel.findById({ _id: userId })) return res.status(404).send({ status: false, message: "user not found" })
+        if (!isValidObjectId(userId))
+         return res.status(400).send({ status: false, message: "invalid user Id.." })
+        if (!await userModel.findById({ _id: userId }))
+         return res.status(404).send({ status: false, message: "user not found" })
 
-        if (!orderId) return res.status(400).send({ status: false, message: "Provide orderId " })
+        if (!orderId)
+         return res.status(400).send({ status: false, message: "Provide orderId " })
         if (!isValidObjectId(orderId)) return res.status(400).send({ status: false, message: "invalid order Id.." })
 
         const searchOrder = await orderModel.findById({ _id: orderId })
