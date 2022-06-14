@@ -22,11 +22,9 @@ aws.config.update({
          if(err) {
              return reject({"error": err})
          }
-
-         return resolve(data.Location)
+          return resolve(data.Location)
      })
   
     })
   }
-
   module.exports = { uploadFile}
