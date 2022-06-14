@@ -139,7 +139,7 @@ const updateProduct = async function (req, res) {
         let updateData = req.body
 
     //==validating productId==//
-        if (!isValidObjectId(productId)) return res.status(400).send({ status: false, msg: "invalid user Id" })
+        if (!isValidObjectId(productId)) return res.status(400).send({ status: false, msg: "invalid product Id" })
 
     //==finding product by productId==//
         let findProductId = await productModel.findById({ _id: productId, isDeleted: false })

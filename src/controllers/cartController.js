@@ -25,8 +25,10 @@ const createCart = async function(req, res){
         quantity = 1
         
       //==validating productId==//
-        if (!(isValid(productId)))  return res.status(400).send({ status: false, message: "productId Id is required" })
-        if(!isValidObjectId(productId)) return res.status(400).send({ status: false, message:"productId  is invalid" })
+        if (!(isValid(productId)))
+          return res.status(400).send({ status: false, message: "productId Id is required" })
+        if(!isValidObjectId(productId))
+         return res.status(400).send({ status: false, message:"productId  is invalid" })
      
       //==validating quantity==//  
         // if (!(isValid(quantity)))  return res.status(400).send({ status: false, message: "quantity is required" })

@@ -150,8 +150,6 @@ const getData = async function (req, res) {
           let files = req.files;
           if(!isValidObjectId(userId))return res.status(400).send({  status: false, message: "Please Provide valid userId"})
           let data = req.body;
-          
-         
       
           let userProfile = await userModel.findById(userId);
           if(!userProfile){return res.status(404).send("user not found!")}

@@ -79,7 +79,6 @@ const updateOrder = async function (req, res) {
         const orderUpdated = await orderModel.findOneAndUpdate({ _id: orderId }, { status: status }, { new: true })
         return res.status(200).send({ status: true, message: "Order status updated successfully", data: orderUpdated })
 
-
     }
 
     catch (err) {
