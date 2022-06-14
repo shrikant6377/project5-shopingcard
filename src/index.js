@@ -7,6 +7,7 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+
 app.use( multer().any())
 
 mongoose.connect("mongodb+srv://Shrikantkhare1:Shrikant@cluster0.qch0g.mongodb.net/project5?retryWrites=true&w=majority", {
